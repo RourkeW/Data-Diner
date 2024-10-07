@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-=mu8zg2$7q-!jhs-w$9d^_(&yk8$7^_wsy@+s#8y8$9^i4oym6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['8000-rourkew-datadiner-xqxhg86p0jm.ws-eu116.gitpod.io/']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'booking',
 ]
 
 MIDDLEWARE = [
