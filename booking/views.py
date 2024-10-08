@@ -1,6 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Meals
 
 # Create your views here.
-def my_app(request):
-    return HttpResponse("Hello, Blog!")
+def meal_list(request):
+    meal_list = Meal.objects.all()
+
+    context = {'meal_list' : meal_list}
+
+    return render(request , Meals/list.html , context)
+
+
+def meal_detail(request, slug):
+    meal_detail = Meals.objects.get(slug=slug)
+
+    context = {'meal_detail': meal_detail}
+
+    return render(request , 'Meal/detail.html' , context)
