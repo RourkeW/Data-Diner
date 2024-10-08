@@ -30,7 +30,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ['https://8000-rourkew-datadiner-xqxhg86p0jm.ws-eu116.gitpod.io/'
-                'herokuapp.com',]
+                'herokuapp.com',
+                '8000-rourkew-datadiner-xqxhg86p0jm.ws-eu116.gitpod.io']
 
 
 # Application definition
@@ -91,7 +92,8 @@ DATABASES = {
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
-    "https://*.herokuapp.com"
+    "https://*.herokuapp.com",
+    "https://8000-rourkew-datadiner-xqxhg86p0jm.ws-eu116.gitpod.io"
 ]
 
 

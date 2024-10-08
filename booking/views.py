@@ -4,11 +4,11 @@ from .models import Meals
 
 # Create your views here.
 def meal_list(request):
-    meal_list = Meal.objects.all()
+    meal_list = Meals.objects.all()
 
     context = {'meal_list' : meal_list}
 
-    return render(request , Meals/list.html , context)
+    return render(request , 'Meals/list.html' , context)
 
 
 def meal_detail(request, slug):
@@ -16,4 +16,4 @@ def meal_detail(request, slug):
 
     context = {'meal_detail': meal_detail}
 
-    return render(request , 'Meal/detail.html' , context)
+    return render(request , 'Meals/detail.html' , context)
