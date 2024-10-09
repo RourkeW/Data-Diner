@@ -12,6 +12,16 @@ class Meals(models.Model):
     image = models.ImageField(upload_to='meals/')
     slug = models.SlugField(blank=True, null=True)
 
+# override the save function for Meals model and say if there is a name without a slug then slugify name and add to slug
+    def save(self, *args, **kwargs):
+        if not self.slug and self.name :
+            self.slug = slugify(self.name)
+        super(Meals , self).save(*args , **kwargs)
+
+
+    class Meta:
+        verbose_name = 'meal'
+        verbose_name_plural = 'meals'
 
     def __str__(self):
         return self.name
