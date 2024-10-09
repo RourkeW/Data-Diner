@@ -6,8 +6,9 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>Menu</h1>
     {% for meal in meal_list %}
-        <h2>{{meal.price}}</h2>
+        <h2><a href="{% url 'booking: meal_detail' meal.slug}">{{meal}}</a></h2>
     {% endfor %}
 
 </body>
