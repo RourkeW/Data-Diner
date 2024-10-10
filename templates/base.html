@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,9 +59,12 @@
                             <h4><strong>Our Opening Times</strong></h4>
                             <br>
                             <p>Monday/Tuesday: CLOSED</p>
-                            <p>Wednesday/Thursday: 12:00-9:30pm</p>
-                            <p>Friday/Saturday: 12:00-10:30pm</p>
-                            <p>Sunday: 12:00-9:30pm</p>
+                            <br>
+                            <p>Wednesday/Thursday: 8:00am-9:30pm</p>
+                            <br>
+                            <p>Friday/Saturday: 8:00am-10:30pm</p>
+                            <br>
+                            <p>Sunday: 10:00am-9:30pm</p>
                         </div>
                     </div>
                 </div>
@@ -75,7 +79,8 @@
                     <div class="section-heading">
                         <h3>Our Menu</h3>
                         {% for meal in meal_list %}
-                        <div class="menu-foor-item">
+                        <div class="menu-for-item">
+                            <img class="meal_image" src="{{meal_detail.image.url}}">
                             <h3><a href="{% url 'meals:meal_detail' meal.slug}">{{meal.name}}</a></h3>
                             <p>{{meal.description}}</p>
                         </div>

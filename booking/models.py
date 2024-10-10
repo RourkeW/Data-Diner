@@ -8,6 +8,7 @@ from django.utils.text import slugify
 class Meals(models.Model):
     name = models.CharField(max_length=25)
     description = models.TextField(max_length=250)
+    category = models.ForeignKey('Category' , on_delete=models.SET_NULL, null=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     image = models.ImageField(upload_to='meals/')
     slug = models.SlugField(blank=True, null=True)
@@ -25,4 +26,18 @@ class Meals(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=30)
+
+
+    class Meta:
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+
+    def __str__(self):
+        return self.name
+
+    
 
