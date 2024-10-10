@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Data Diner Restaurant. Good, honest food. Booking and menu both available online.">
+    <meta name="description"
+        content="Data Diner Restaurant. Good, honest food. Booking and menu both available online.">
     <title>Home Page</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -21,6 +24,7 @@
     <!-- Custom CSS -->
     <link href="{% static 'static/styles.css' %}" rel="stylesheet">
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -69,14 +73,72 @@
                 <div class="col-lg-4">
                     <div class="section-heading">
                         <h3>Our Menu</h3>
-
-
+                        {% for meal in meal_list %}
+                        <div class="menu-foor-item">
+                            <h3><a href="{% url 'meals:meal_detail' meal.slug}">{{meal.name}}</a></h3>
+                            <p>{{meal.description}}</p>
+                        </div>
+                        <div class="price">
+                            <strong>£{{meal.price}}</strong>
+                        </div>
+                        { endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-xs-12">
+                    <div class="right-text-content">
+                        <div class="social-icons">
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="logo">
+                        <a href="index.html">
+                            <img src="static/favicons/android-chrome-192x192.png" alt="Data Diner Custom Logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xs-12">  
+                    <div class="left-text-content">
+                        <h6>Address</h6>
+                        <br>
+                        <p>1261 Call Lane, Leeds, LS1 5RN</p>
+                        <br>
+                        <h6>Phone Number</h6>
+                        <br>
+                        <p>0113 192 4295</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
-<script src="static/main.js"></script>
+<script src=" static/main.js"></script>
+
 </html>
