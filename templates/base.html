@@ -47,6 +47,10 @@
         </div>
     </header>
 
+    {% block body %}
+    <!-- The content from the child template will be rendered here -->
+    {% endblock %}
+
     <div class="top">
         <div class="container-fluid">
             <div class="row">
@@ -66,28 +70,6 @@
                             <br>
                             <p>Sunday: 10:00am-9:30pm</p>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section" id="menu">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="section-heading">
-                        <h3>Our Menu</h3>
-                        {% for meal in meal_list %}
-                        <div class="menu-for-item">
-                            <img class="meal_image" src="{{meal_detail.image.url}}">
-                            <h3><a href="{% url 'meals:meal_detail' meal.slug}">{{meal.name}}</a></h3>
-                            <p>{{meal.description}}</p>
-                        </div>
-                        <div class="price">
-                            <strong>£{{meal.price}}</strong>
-                        </div>
-                        { endfor %}
                     </div>
                 </div>
             </div>
