@@ -3,13 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <title>Document</title>
 </head>
 <body>
     <h1>Menu</h1>
     {% for meal in meal_list %}
-        <h2><a href="{% url 'booking: meal_detail' meal.slug}">{{meal}}</a></h2>
-    {% endfor %}
-
+        <div class="menu-foor-item">
+            <h3><a href="{% url 'meals:meal_detail' meal.slug}">{{meal.name}}</a></h3>
+            <p>{{meal.description}}</p>
+        </div>
+        <div class="price">
+            <strong>£{{meal.price}}</strong>
+        </div>
+    { endfor %}
 </body>
+<script src="static/main.js"></script>
 </html>
