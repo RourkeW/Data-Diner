@@ -1,135 +1,102 @@
 {% load static %}
+{% url 'home' as home_url %}
+{% url 'menu' as menu_url %}
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Data Diner Restaurant. Good, honest food. Booking and menu both available online.">
-    <title>Home Page</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
-        rel="stylesheet">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <meta name="description" content="DataDiner restaurant, Leeds, Booking and menu both available online.">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'static/favicons/android-chrome-192x192.png' %}" type="image/png">
 
-    <!-- Custom CSS -->
-    <link href="{% static 'static/styles.css' %}" rel="stylesheet">
-</head>
+    <title>{% block head_title %}Data Diner{% endblock %}</title>
 
-<body>
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="main-nav">
-                        <div class="logo">
-                            <a href="index.html"><img src="static/favicons/android-chrome-192x192.png"></a>
-                        </div>
-                        <ul class="navlist">
-                            <li><a href="#" class="logo"><i class="fa-solid fa-house"></i>Home</a>
-                            <li><a href="#"><i class="fa-solid fa-bowl-food"></i>Menu</a></li>
-                            <li><a href="#"><i class="fa-solid fa-location-crosshairs"></i>Location</a></li>
-                            <li><a href="#">Book a Table</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <!-- Font Awesome (v5.15.1) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <!-- Bootstrap (v4.5.2) CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Custom CSS Styles -->
+    <link rel="stylesheet" href="{% static 'static/styles.css' %}">
+    <!-- Adjust the path based on your project structure -->
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+            <img src="{% static 'images/logo.png' %}" alt="Syria Restaurant Logo"
+                style="height: 60px; object-fit: contain;">
+            <h1 class="ml-2 mb-0">House Of Damascus</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'menu' %}">Menu</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'bookform' %}">Book Now</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'bookinglist' %}">My Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
+                        href="{% url 'account_logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
+                        href="{% url 'account_signup' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
+                        href="{% url 'account_login' %}">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+            {% if user.is_authenticated %}
+            <p class="text-end m-3">You are logged in as {{ user }}</p>
+            {% else %}
+            <p class="text-end m-3">You are not logged in</p>
+            {% endif %}
         </div>
-    </header>
+    </nav>
 
-    {% block body %}
-    <!-- The content from the child template will be rendered here -->
-    {% endblock %}
-
-    <div class="top">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="inner-content">
-                        <div class="times-heading">
-                            <h1>Data Diner</h1>
-                        </div>
-                        <div class="times">
-                            <h4><strong>Our Opening Times</strong></h4>
-                            <br>
-                            <p>Monday/Tuesday: CLOSED</p>
-                            <br>
-                            <p>Wednesday/Thursday: 8:00am-9:30pm</p>
-                            <br>
-                            <p>Friday/Saturday: 8:00am-10:30pm</p>
-                            <br>
-                            <p>Sunday: 10:00am-9:30pm</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Content Area -->
+    <div class="container mt-4 flex-grow-1">
+        {% block content %}{% endblock %}
     </div>
 
-    <footer>
-        <div class=" container">
-            <div class="row">
-                <div class="col-lg-4 col-xs-12">
-                    <div class="right-text-content">
-                        <div class="social-icons">
-                            <li>
-                                <a href="https://www.facebook.com/?locale=en_GB" target="_blank">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://x.com/?lang=en" target="_blank">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://uk.linkedin.com/" target="_blank">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.instagram.com/" target="_blank">
-                                    <i class="fa fa-instagram"></i>
-                                </a>
-                            </li>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="logo">
-                        <a href="index.html">
-                            <img src="static/favicons/android-chrome-192x192.png" alt="Data Diner Custom Logo">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-xs-12">
-                    <div class="left-text-content">
-                        <h6>Address</h6>
-                        <br>
-                        <p>42 Call Lane, Leeds, LS1 6DT/p>
-                            <br>
-                            <h6>Phone Number</h6>
-                            <br>
-                            <p>0113 192 4295</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-light text-center py-3">
+        <p>&copy; 2024 Data Diner. All Rights Reserved.</p>
     </footer>
+
+    <!-- Bootstrap (v4.5.2) JS, jQuery, Popper (Ensure you include them in this order) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+    </script>
+
 </body>
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
-</script>
 
 </html>
