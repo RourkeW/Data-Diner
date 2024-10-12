@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}Menu - Data Diner{% endblock %}
+
+{% block content %}
+
+<!-- Menu Section -->
+<section class="menu-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="section-title">Our Menu</h2>
+            </div>
+        </div>
+
+        <!-- Menu Items -->
+        <div class="row mt-4">
+            <!-- Breakfast Buffet -->
+            <div class="col-md-4">
+                {% meal in meal_list %}
+                <div class="menu-item">
+                    <h6>{{meal.name}}</h6>
+                    <br>
+                    {{meal.image}}
+                    <br>
+                    <p>{{meal.description}}</p>
+                    <br>
+                    <p>{{price}}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Lunch Buffet -->
+            <div class="col-md-4">
+                <div class="menu-item">
+                    <img src="{% static 'images/lunch.jpeg' %}" alt="Lunch Buffet" class="menu-img img-fluid">
+                    <h3 class="menu-title">Lunch Buffet</h3>
+                    <p class="menu-description">Indulge in a midday feast featuring Shawarma, Falafel, Kebbeh, and an
+                        array of mezze delights. Served from 1 PM to 5 PM.</p>
+                    <p class="menu-price">$24.99 (Includes Drinks)</p>
+                </div>
+            </div>
+
+            <!-- Dinner Buffet -->
+            <div class="col-md-4">
+                <div class="menu-item">
+                    <img src="{% static 'images/dinner.jpeg' %}" alt="Dinner Buffet" class="menu-img img-fluid">
+                    <h3 class="menu-title">Dinner Buffet</h3>
+                    <p class="menu-description">Experience a lavish evening with dishes such as Mansaf, Fattoush, Warak
+                        Enab, and a variety of grilled meats. Served from 6 PM to 9 PM.</p>
+                    <p class="menu-price">$24.99 (Includes Drinks)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your Email Address" %}{% endblock head_title %}
+
+{% block content %}
+<h1>{% trans "Verify Your Email Address" %}</h1>
+
+<p>{% blocktrans %}Please check your inbox for a verification email. Follow the instructions to ensure signup is
+    complete. If you do not see the verification email in your main inbox, check your spam folder. If you do not recieve
+    a verification email please contact us.{% endblocktrans %}
+</p>
+
+{% endblock content %}
