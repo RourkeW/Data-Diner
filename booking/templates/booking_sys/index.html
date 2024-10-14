@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}Home - Data Diner{% endblock %}
+
+{% block content %}
+<style>
+    /* Hero Section */
+    .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("{% static 'images/background.jpeg' %}");
+        background-size: cover;
+        background-position: center 30%;
+        color: #fff;
+        padding: 100px 0;
+        text-align: center;
+    }
+
+    .hero-section h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+    }
+
+    .hero-section p {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+    }
+
+    .hero-section a.btn-primary {
+        font-size: 1.2em;
+        padding: 10px 20px;
+    }
+
+    /* About Section */
+    .about-section {
+        background-color: #f8f9fa;
+        padding: 80px 0;
+    }
+
+    .about-section h2 {
+        color: #007bff;
+    }
+
+    .about-section p {
+        font-size: 1.1em;
+        color: #495057;
+        margin-bottom: 20px;
+    }
+
+    /* Opening Time Section */
+    .opening-time-section {
+        background-color: #343a40;
+        color: #fff;
+        padding: 80px 0;
+    }
+
+    .opening-time-section h2 {
+        color: #17a2b8;
+    }
+
+    .opening-time-section p {
+        font-size: 1.1em;
+        margin-bottom: 20px;
+    }
+
+    /* Contact Section */
+    .contact-section {
+        background-color: #f8f9fa;
+        padding: 80px 0;
+    }
+
+    .contact-section h2 {
+        color: #007bff;
+    }
+
+    .contact-section p {
+        font-size: 1.1em;
+        color: #495057;
+        margin-bottom: 20px;
+    }
+
+    .contact-section a.btn-primary {
+        font-size: 1.2em;
+        padding: 10px 20px;
+    }
+</style>
+{% if messages %}
+<div class="messages-container">
+    {% for message in messages %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<!-- Hero Section -->
+<section class="hero-section text-center py-5">
+
+    <h1 class="display-4">Menu</h1>
+    <a href="{% url 'menu' %}" class="btn btn-primary btn-lg">Explore Our Menu</a>
+</section>
+
+
+<!-- About Section -->
+<section class="about-section text-center py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2>About Us</h2>
+                <p>Welcome to The Data Diner, where nostalgia meets comfort! Nestled in the heart of the community,
+                    our diner brings you the best of traditional American fare, from fluffy pancakes and juicy burgers.
+                </p>
+                <p>With a retro vibe and friendly service, we strive to create a welcoming atmosphere for
+                    everyone—families, friends, and solo diners alike. Our dedicated team is passionate about serving up
+                    fresh, hearty meals made with love. Whether you're stopping by for breakfast, lunch, or dinner,
+                    you’ll find a taste of home at The Data Diner!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Opening Time Section -->
+<!-- Opening Time Section -->
+<section class="opening-time-section text-center py-5">
+    <h2>Visit Us</h2>
+    <p>We are open every day from 9 AM to 9 PM</p>
+    <!-- Embed Google Maps -->
+    <div class="google-map-container">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2356.6652342989!2d-1.5435997223682794!3d53.79544554102489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48795c19a381007f%3A0x3a61652aa0e6f419!2sCall%20Ln%2C%20Leeds!5e0!3m2!1sen!2suk!4v1728881900527!5m2!1sen!2suk"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</section>
+
+
+<!-- Contact Section -->
+<section class="contact-section text-center py-5">
+    <h2>Contact Us</h2>
+    <p>Have a question or reservation request? Feel free to reach out to us.</p>
+    <a href="tel:+1234567890" class="btn btn-primary">Call Now</a>
+    <p>Phone: 0113 123 4567</p>
+    <p>Email: datadiner@restaurant.com</p>
+</section>
+
+{% endblock %}
+
+{% block copyright %}
+Copyright Data Diner 2024. All Rights Reserved.
+{% endblock %}
