@@ -10,7 +10,7 @@ from django.views.generic.edit import UpdateView
 # Create your views here.
 class BookingList(generic.ListView):
     model = Booking
-    template_name = "booking/index.html"
+    template_name = "index.html"
     paginate_by = 6
 
 def menu(request):
