@@ -1,6 +1,12 @@
-from django.contrib import admin 
-from .models import Meals , Category
+from django.contrib import admin
+from django.contrib import messages
+from .models import Booking
+from django_summernote.admin import SummernoteModelAdmin
 
-# Register your models here.
-admin.site.register(Meals)
-admin.site.register(Category)
+class BookingAdmin(SummernoteModelAdmin):
+    list_display = ('user', 'date', 'time', 'guests', 'status')
+    search_fields = ['user__username', 'user__email']
+    list_filter = ('status',)
+    date_hierarchy = 'date'
+
+admin.site.register(Booking)
