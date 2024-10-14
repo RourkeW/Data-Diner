@@ -32,7 +32,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['https://8000-rourkew-datadiner-xqxhg86p0jm.ws-eu116.gitpod.io/'
                 'herokuapp.com',
-                '8000-rourkew-datadiner-xqxhg86p0jm.ws-eu116.gitpod.io']
+                '8000-rourkew-datadiner-xqxhg86p0jm.ws-eu116.gitpod.io',
+                'datadiner-523b6df833e8.herokuapp.com']
 
 
 # Application definition
