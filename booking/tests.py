@@ -96,7 +96,7 @@ class BookingSystemTestCase(TestCase):
             response = self.client.post(url)
             self.assertEqual(response.status_code, 302)  # Redirects to booking list
             with self.assertRaises(Booking.DoesNotExist):
-            Booking.objects.get(pk=booking.pk)
+                Booking.objects.get(pk=booking.pk)
 
         def test_delete_other_user_booking(self):
         # Test if a user cannot delete another user's booking
