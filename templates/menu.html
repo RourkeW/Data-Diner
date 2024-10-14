@@ -18,7 +18,7 @@
         <div class="row mt-4">
             <!-- Breakfast Buffet -->
             <div class="col-md-4">
-                {% meal in meal_list %}
+                {% for meal in meal_list %}
                 <div class="menu-item">
                     <h6>{{meal.name}}</h6>
                     <br>
