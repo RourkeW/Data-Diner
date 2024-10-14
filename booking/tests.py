@@ -50,3 +50,101 @@ class BookingSystemTestCase(TestCase):
             response = self.client.get(reverse('bookinglist'))
             self.assertEqual(response.status_code, 200)
             self.assertTemplateUsed(response, 'bookinglist.html')
+
+        def test_booking_delete_view(self):
+        # Test the booking delete view for a logged-in user
+            booking = self.create_booking(date.today() + timedelta(days=4))
+            url = reverse('delete', args=[booking.pk])
+            self.client.login(username='testuser', password='testpassword')
+            response = self.client.post(url)
+            self.assertEqual(response.status_code, 302)  # Redirects to booking list
+
+        def test_custom_404_view(self):
+        # Test the custom 404 view
+            response = self.client.get('/nonexistentpage/')
+            self.assertEqual(response.status_code, 404)
+            self.assertTemplateUsed(response, '404.html')
+
+        def test_update_own_booking(self):
+        # Test if a user can update their own booking
+            booking = self.create_booking(date.today() + timedelta(days=5))
+            url = reverse('bookingupdate', args=[booking.pk])
+            form_data = {'date': date.today() + timedelta(days=6), 'time': '11:00', 'group': 5, 'status': 'Pending'}
+            self.client.login(username='testuser', password='testpassword')
+            response = self.client.post(url, data=form_data)
+            self.assertEqual(response.status_code, 302)  # Redirects to booking list
+            updated_booking = Booking.objects.get(pk=booking.pk)
+            self.assertEqual(updated_booking.date, date.today() + timedelta(days=6))
+            self.assertEqual(updated_booking.time, '11:00')
+            self.assertEqual(updated_booking.group, 5)
+
+        def test_update_other_user_booking(self):
+        # Test if a user cannot update another user's booking
+            other_user = User.objects.create_user(username='otheruser', password='testpassword')
+            booking = self.create_booking(date.today() + timedelta(days=7), group=3, guest=other_user)
+            url = reverse('bookingupdate', args=[booking.pk])
+            form_data = {'date': date.today() + timedelta(days=8), 'time': '13:30', 'group': 4, 'status': 'Pending'}
+            self.client.login(username='testuser', password='testpassword')
+            response = self.client.post(url, data=form_data)
+            self.assertEqual(response.status_code, 403)  # Forbidden
+
+        def test_delete_own_booking(self):
+        # Test if a user can delete their own booking
+            booking = self.create_booking(date.today() + timedelta(days=9))
+            url = reverse('delete', args=[booking.pk])
+            self.client.login(username='testuser', password='testpassword')
+            response = self.client.post(url)
+            self.assertEqual(response.status_code, 302)  # Redirects to booking list
+            with self.assertRaises(Booking.DoesNotExist):
+            Booking.objects.get(pk=booking.pk)
+
+        def test_delete_other_user_booking(self):
+        # Test if a user cannot delete another user's booking
+            other_user = User.objects.create_user(username='otheruser', password='testpassword')
+            booking = self.create_booking(date.today() + timedelta(days=10), group=3, guest=other_user)
+            url = reverse('delete', args=[booking.pk])
+            self.client.login(username='testuser', password='testpassword')
+            response = self.client.post(url)
+            self.assertEqual(response.status_code, 403)  # Forbidden
+
+        def test_user_authentication(self):
+        # Test that only authenticated users can access certain views
+            response = self.client.get(reverse('bookform'))
+            self.assertEqual(response.status_code, 200)  # Redirects to login page for unauthenticated users
+
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('bookform'))
+        self.assertEqual(response.status_code, 200)
+
+        def test_user_authorization(self):
+        # Test that users cannot update or delete bookings created by other users
+            other_user = User.objects.create_user(username='otheruser', password='testpassword')
+            other_user_booking = self.create_booking(date.today() + timedelta(days=1), guest=other_user)
+
+        url = reverse('bookingupdate', args=[other_user_booking.pk])
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)  # Forbidden
+
+        url = reverse('delete', args=[other_user_booking.pk])
+        response = self.client.post(url)
+        self.assertEqual(response.status_code, 403)
+
+        def test_date_time_availability(self):
+            booking = self.create_booking(date.today() + timedelta(days=2))
+
+        form_data = {'date': date.today() + timedelta(days=2), 'time': '09:00', 'group': 4, 'status': 'Pending'}
+        form = ReservationForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+        def test_error_handling(self):
+        # Test error handling scenarios
+            response = self.client.get('/nonexistentpage/')
+            self.assertEqual(response.status_code, 404)
+            self.assertTemplateUsed(response, '404.html')
+
+        form_data = {'date': date.today(), 'time': 'invalid_time', 'group': 20, 'status': 'Pending'}
+        form = ReservationForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('Select a valid choice. invalid_time is not one of the available choices.', form.errors['time'])
+        self.assertIn('Group size must be between 1 and 15', form.errors['group'])
